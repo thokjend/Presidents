@@ -27,36 +27,13 @@ namespace Presidents
             if (yearTo.Length == 0) return;
             yearTo = yearFrom.Substring(0, 4 - yearTo.Length) + yearTo;
             YearTo = Convert.ToInt32(yearTo);
-
-        }
-
-        public void Show(int inputYearFrom, int inputYearTo)
-        {
-            if (inputYearFrom <= YearFrom && inputYearTo >= YearTo)
-            {
-                var yearTo = YearTo.ToString() ?? "";
-                Console.WriteLine($"{Name} ({Party}) {YearFrom} - {yearTo} ");
-            }
         }
 
         public void Show()
         {
+            var yearTo = YearTo.ToString() ?? "";
             var timePeriods = (YearTo - YearFrom) / 4;
-            if (timePeriods > 1)
-            {
-                var yearTo = YearTo.ToString() ?? "";
-                Console.WriteLine($"{Name} ({Party}) {YearFrom} - {yearTo} - {timePeriods} Periods");
-            }
-
-        }
-
-        public void Search(string name)
-        {
-            if (Name.Contains(name))
-            {
-                Show();
-            }
-
+            Console.WriteLine($"{Name} ({Party}) {YearFrom} - {yearTo} - {timePeriods} Periods");
         }
 
         public void CountParty(Dictionary<string, int> partyCounts)

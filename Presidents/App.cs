@@ -13,19 +13,38 @@ namespace Presidents
             _partyCounts = new Dictionary<string, int>();
         }
 
-        public void Show(int yearFrom, int yearTo)
+        public void SearchByYear(int inputYearFrom, int inputYearTo)
         {
             foreach (var president in _presidents)
             {
-                president.Show(yearFrom, yearTo);
+                var filterYears = inputYearFrom <= president.YearFrom && inputYearTo >= president.YearTo;
+                if (filterYears)
+                {
+                    president.Show();
+                }
             }
         }
 
-        public void Search(string name)
+        public void SearchByName(string name)
         {
+            var filteredPresident = _presidents.Where(p => p.Name.Contains(name));
+            foreach (var president in filteredPresident)
+            {
+                president.Show();
+            }
+        }
+
+        public void ShowPresidentWithMoreThan1Period()
+        {
+
             foreach (var president in _presidents)
             {
-                president.Search(name);
+                var timePeriods = (president.YearTo - president.YearFrom) / 4;
+                if (timePeriods > 1)
+                {
+                    president.Show();
+                }
+
             }
         }
 
@@ -51,13 +70,7 @@ namespace Presidents
             }
         }
 
-        public void ShowPresidentWithMoreThan1Period()
-        {
-            foreach (var president in _presidents)
-            {
-                president.Show();
-            }
-        }
+
 
 
         private static President[] GetPresidents()
